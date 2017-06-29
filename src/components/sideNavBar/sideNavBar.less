@@ -1,0 +1,26 @@
+
+side-nav-bar {
+  position: absolute;
+  height: 100%;
+  width: 50px;
+  background: @brand-primary;
+  color: @navbar-default-color;
+  text-align: center;
+
+  .nav-link-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    &.active {
+      background: @navbar-default-link-active-bg;
+    }
+    &:hover {
+      color: @brand-success;
+    }
+
+    i.material-icons {
+      font-size: 30px;
+      
+    }
+  }
+}

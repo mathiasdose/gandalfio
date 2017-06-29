@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Gandalfio</title>
+    <link rel="stylesheet" href="node_modules/material-design-icons-iconfont/dist/fonts/material-icons.css">
+    <link rel="stylesheet" href="dist/app.css">
+  </head>
+  <body ng-app="Gandalfio">
+    <side-nav-bar></side-nav-bar>
+    <div ng-view></div>
+  </body>
+
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js');
+    window.jQuery = window.$ = require('./node_modules/jquery/dist/jquery.js');
+    // window.XLSX = require('./node_modules/xlsjs/xls.js');
+  </script>
+
+  <script>
+		// Monaco uses a custom amd loader that over-rides node's require.
+		// Keep a reference to node's require so we can restore it after executing the amd loader file.
+		var nodeRequire = global.require;
+	</script>
+  <script src="node_modules/monaco-editor/dev/vs/loader.js"></script>
+  <script>
+		// Save Monaco's amd require and restore Node's require
+		var amdRequire = global.require;
+		global.require = nodeRequire;
+	</script>
+
+  <script>
+		// require node modules before loader.js comes in
+		var path = require('path');
+		function uriFromPath(_path) {
+			var pathName = path.resolve(_path).replace(/\\/g, '/');
+			if (pathName.length > 0 && pathName.charAt(0) !== '/') {
+				pathName = '/' + pathName;
+			}
+			return encodeURI('file://' + pathName);
+		}
+		amdRequire.config({
+			baseUrl: uriFromPath(path.join(__dirname, 'node_modules/monaco-editor/dev'))
+		});
+		// workaround monaco-css not understanding the environment
+		self.module = undefined;
+		// workaround monaco-typescript not understanding the environment
+		self.process.browser = true;
+		amdRequire(['vs/editor/editor.main'], function() {
+			window.monaco = monaco;
+      angular.module('Gandalfio').value('editor', window['monaco']);
+		});
+	</script>
+
+  <script src="node_modules/lodash/lodash.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-route/angular-route.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.js"></script>
+  <!--<script src="node_modules/xlsx/xlsx.js"></script>-->
+
+  <!-- injector:js -->
+  <script src="dist/utils/AngularClass.js"></script>
+  <script src="dist/app.js"></script>
+  <script src="dist/io/io.component.js"></script>
+  <script src="dist/io/io.js"></script>
+  <script src="dist/models/excelExport.model.js"></script>
+  <script src="dist/models/excelInputSource.model.js"></script>
+  <script src="dist/models/inputSource.model.js"></script>
+  <script src="dist/models/inputSourceType.model.js"></script>
+  <script src="dist/models/io.model.js"></script>
+  <script src="dist/models/output.model.js"></script>
+  <script src="dist/models/outputType.model.js"></script>
+  <script src="dist/models/transform.model.js"></script>
+  <script src="dist/services/inputSource.service.js"></script>
+  <script src="dist/services/io.service.js"></script>
+  <script src="dist/services/konstrux.service.js"></script>
+  <script src="dist/services/monacoEditor.service.js"></script>
+  <script src="dist/services/output.service.js"></script>
+  <script src="dist/components/expandableSection/expandableSection.component.js"></script>
+  <script src="dist/components/fileReader/fileReader.component.js"></script>
+  <script src="dist/components/inputSourceModal/excelFileStep.component.js"></script>
+  <script src="dist/components/inputSourceModal/inputSourceModal.component.js"></script>
+  <script src="dist/components/inputSourceModal/sourceTypeStep.component.js"></script>
+  <script src="dist/components/modal/modal.component.js"></script>
+  <script src="dist/components/outputModal/outputExcelFileStep.component.js"></script>
+  <script src="dist/components/outputModal/outputModal.component.js"></script>
+  <script src="dist/components/outputModal/outputTypeStep.component.js"></script>
+  <script src="dist/components/sideNavBar/sideNavBar.component.js"></script>
+  <script src="dist/components/stepButtons/stepButtons.component.js"></script>
+  <script src="dist/components/tooltip/tooltip.directive.js"></script>
+  <script src="dist/io/inputSources/inputSources.component.js"></script>
+  <script src="dist/io/outputs/outputs.component.js"></script>
+  <script src="dist/io/transform/transform.component.js"></script>
+  <script src="dist/io/transform/transformEditor/transformEditor.component.js"></script>
+  <!-- endinjector -->
+</html>

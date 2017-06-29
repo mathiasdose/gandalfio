@@ -1,0 +1,37 @@
+
+@import '../node_modules/bootstrap/less/bootstrap.less';
+
+@import 'variables.less';
+@import './styles/flatly.less';
+
+div[ng-view] {
+  padding-left: 50px;
+}
+
+.gio-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.unselectable {
+  -webkit-user-select: none; /* Chrome/Safari */        
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+i {
+  -webkit-user-select: none;       
+  -o-user-select: none;
+  user-select: none;
+}
+
+@import 'imports.less';

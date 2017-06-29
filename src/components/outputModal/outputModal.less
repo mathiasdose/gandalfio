@@ -1,0 +1,54 @@
+output-modal {
+
+  output-type-step {
+
+    .output-types-container {
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .output-type-button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .output-type-button {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid;
+          border-color: transparent;
+          cursor: pointer;
+          padding-right: 10px;
+          padding-left: 10px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+
+          &:hover {
+            color: darken(@brand-primary, 10%);
+          }
+
+          &.selected {
+            
+            // background-color: @gray-lighter; 
+            border-radius: 7px;
+            border-color: @brand-primary;
+          }
+
+          i.material-icons {
+            font-size: 40px;
+          }
+
+          small {
+            padding-left: 5px;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

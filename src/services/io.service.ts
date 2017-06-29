@@ -1,0 +1,4 @@
+class IoService extends AngularClass {
+  
+
+}
