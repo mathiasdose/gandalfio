@@ -16,6 +16,10 @@ angular.module('Gandalfio').run(($rootScope: angular.IRootScopeService) => {
 
 angular.module('Gandalfio').value('xlsx', require('./node_modules/xlsx/xlsx.js'));
 angular.module('Gandalfio').value('fs', require('fs'));
+
+const {dialog} = require('electron').remote
+angular.module('Gandalfio').value('dialog', dialog);
+
 // console.log('adding monaco')
 // angular.module('Gandalfio').value('editor', window['monaco']);
 

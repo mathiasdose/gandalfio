@@ -31,7 +31,7 @@ var InputSourcesComponent: angular.IComponentOptions = {
   <div>
     <div class="input-sources-container col-xs-12">
       <div ng-repeat="inputSource in $ctrl.inputSources"
-        class="input-source-button-container col-xs-1">
+        class="input-source-button-container col-xs-2">
         <div class="input-source-button" ng-click="$ctrl.inputSourceModalApi.runWizard(inputSource)">
           <i class="material-icons">insert_drive_file</i>
           <h4>{{inputSource.reference}}</h4>

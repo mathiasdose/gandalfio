@@ -6,7 +6,7 @@ class OutputExcelFileStepCtrl extends AngularClass {
   private mode: OutputModalMode;
   private outputForm: angular.IFormController;  
 
-  constructor() {
+  constructor(private dialog: Electron.Dialog) {
     super();
   }
 
@@ -21,13 +21,9 @@ class OutputExcelFileStepCtrl extends AngularClass {
     this.output = {
       outputType: excelOutputType,
       directory: null,
-      fileName: null
+      fileName: null,
+      id: null
     }
-  }
-
-  onDirectoryRead(file) {
-
-    console.log('file');
   }
 
   addOutput() {
@@ -35,7 +31,24 @@ class OutputExcelFileStepCtrl extends AngularClass {
       this.outputForm.$setSubmitted();
       return;
     }
+    this.addFileEnding(this.output);
+    this.output.id = this.output.fileName;
     this.onAddOutput({ output: this.output });
+  }
+
+  addFileEnding(output: ExcelOutput) {
+    output.fileName = _.trimEnd(output.fileName, '.xslx');
+    output.fileName = `${output.fileName}.xslx`;
+    return output;
+  }
+
+  openDirectoryDialog() {
+    let directory = this.dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+    if (directory && directory.length === 1) {
+      this.output.directory = directory[0];
+    }
   }
 
 }
@@ -58,9 +71,10 @@ var OutputExcelFileStepComponent: angular.IComponentOptions = {
       <label for="directory" class="control-label">Directory</label>
       <div class="input-group">
         <input ng-model="$ctrl.output.directory" type="text" class="form-control"/>
-        <file-reader accept=".xls,.xlsx" on-file-read="$ctrl.onDirectoryRead(file)"></file-reader>
         <span class="input-group-btn">
-          <label for="file-input" class="btn btn-default"><i class="material-icons">folder</i></label>
+          <button class="btn btn-default" ng-click="$ctrl.openDirectoryDialog()">
+            <i class="material-icons">folder</i>
+          </button>
         </span>   
       </div>
     </div>

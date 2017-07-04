@@ -31,10 +31,10 @@ var OutputsComponent: angular.IComponentOptions = {
   <div>
     <div class="outputs-container col-xs-12">
       <div ng-repeat="output in $ctrl.outputs"
-        class="output-button-container col-xs-1">
+        class="output-button-container col-xs-2">
         <div class="output-button" ng-click="$ctrl.outputModalApi.runWizard(output)">
           <i class="material-icons">insert_drive_file</i>
-          <h4>{{output.type}}</h4>
+          <h4>{{output.id}}</h4>
         </div>
       </div>
     </div>

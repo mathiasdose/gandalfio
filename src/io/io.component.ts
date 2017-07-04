@@ -31,6 +31,14 @@ class IoCtrl {
     return io;
   }
 
+  runIo() {
+
+  }
+
+  saveIo() {
+    
+  }
+
 }
 
 var ioComponent: angular.IComponentOptions = {
@@ -47,6 +55,8 @@ var ioComponent: angular.IComponentOptions = {
     <expandable-section sequence="3" header="Export" show-content="true" class="row">
       <outputs></outputs>
     </expandable-section>
+    <div class="delimiter"></div>
+    <io-bottom-bar on-run="$ctrl.runIo()" on-save="$ctrl.saveIo()"></io-bottom-bar>
   </div>  
   `
 }
