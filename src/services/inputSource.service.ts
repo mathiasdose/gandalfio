@@ -2,7 +2,8 @@ class InputSourceService extends AngularClass {
 
   private inputSourceTypes: InputSourceType[];
 
-  constructor() {
+  constructor(private $q: angular.IQService,
+    private xlsx) {
     super();
     this.inputSourceTypes = [
       {
@@ -15,6 +16,28 @@ class InputSourceService extends AngularClass {
 
   getInputSourceTypes() {
     return this.inputSourceTypes;
+  }
+
+  loadInputData(inputSources: InputSource[]) {
+    let promises = {};
+    inputSources.forEach(inputSource => promises[inputSource.reference] = this.loadInputDataSingle(inputSource));
+    return this.$q.all(promises);
+  }
+
+  private loadInputDataSingle(inputSource: InputSource) {
+    switch (inputSource.inputSourceType.id) {
+      case 'excel':
+        let excelInputSource = inputSource as ExcelInputSource;
+        return this.loadExcelInputData(excelInputSource);
+      default:
+        return this.$q.reject(`Unknown InputSourceType: ${inputSource.inputSourceType.id}`);
+    }
+  }
+
+  private loadExcelInputData(excelInputSource: ExcelInputSource) {   
+    let workbook = this.xlsx.readFile(excelInputSource.filePath);
+    let data = this.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+    return this.$q.when(data);
   }
 
 }

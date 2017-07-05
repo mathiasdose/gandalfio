@@ -3,7 +3,9 @@ class IoCtrl {
   private io: Io;
   private ioStore: StorePart<Io>;
 
-  constructor(private konstrux: Konstrux) {
+  constructor(private konstrux: Konstrux,
+    private ioService: IoService,
+    private localStorageService: angular.local.storage.ILocalStorageService) {
 
   }
 
@@ -12,6 +14,7 @@ class IoCtrl {
     this.ioStore = this.konstrux.registerStorePart('io', this.io);
     this.unsubIo = this.ioStore.subscribe(io => {
       this.io = io;
+      this.localStorageService.set<Io>('io', this.io);
     });
   }
 
@@ -20,23 +23,36 @@ class IoCtrl {
   }
 
   resolveIo() {
-    let io: Io = {
-      inputSources: [],
-      transform: {
-        statement: null,
-        type: 'sql'
-      },
-      outputs: []
-    };
+    let io: Io = this.localStorageService.get<Io>('io')
+      ||  {
+        inputSources: [],
+        transform: {
+          statement: null,
+          type: 'sql'
+        },
+        outputs: []
+      };
     return io;
   }
 
-  runIo() {
+  async runIo() {
+    //startLoading
+    try {
+      await this.ioService.runIo(this.io);
+      // let res = await this.ioService.asyncFunc1();
+      // console.log(res);
+    } catch (error) {
+      //display error
+    } finally {
+      //stopLoading
+    }
+
+
 
   }
 
   saveIo() {
-    
+
   }
 
 }
