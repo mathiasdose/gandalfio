@@ -55,13 +55,35 @@ gulp.task('inject-less', () => {
     .pipe(gulp.dest('./src'));
 });
 
+let _typescriptSrcFile = null;
+
 gulp.task('typescript', () => {
-  return gulp.src('src/**/*.ts')
+  let src = _typescriptSrcFile || 'src/**/*.ts';
+  let destPath = getProperDestPath();
+
+  console.log(`SOURCE: ${src}`);
+  console.log(`DEST: ${destPath}`);
+
+  return gulp.src(src)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(destPath));
 });
+
+function getProperDestPath() {
+  if (!_typescriptSrcFile) return 'dist';
+  var pathToDeepestFolder = getPathToDeepestFolder(_typescriptSrcFile);
+  var splitted = pathToDeepestFolder.split('./src');
+  if (splitted[1] === undefined) return 'dist';
+  return 'dist' + splitted[1];
+}
+
+function getPathToDeepestFolder(filePath) {
+  var splitted = filePath.split('/');
+  splitted.pop();
+  return splitted.join('/');
+}
 
 /**
  * Injects all application .js files into index.html
@@ -122,15 +144,13 @@ gulp.task('watch-ts', () => {
     './src/**/*.ts',
     '!./src/**/*.spec.ts'
   ];
-  watch(sources, () => {
+  return watch(sources).on('change', (file) => {
+    // We first convert to relative path
+    var splitted = file.split('Gandalfio');
+    _typescriptSrcFile = '.' + splitted[1];
+    console.log(_typescriptSrcFile);
     gulp.start('typescript');
   });
-  // return watch(sources).on('change', (file) => {
-  //   // We first convert to relative path
-  //   var splitted = file.split('client');
-  //   _babelSrcFile = '.' + splitted[1];
-  //   gulp.start('babel');
-  // });
 
 });
 

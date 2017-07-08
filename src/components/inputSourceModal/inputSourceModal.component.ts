@@ -88,6 +88,15 @@ class InputSourceModalCtrl extends AngularClass {
     this.closeModal();
   }
 
+  removeInputSource(inputSource: InputSource) {
+    let io = this.ioStore.getStoreData();
+    let inputSources = angular.copy(io.inputSources);
+    inputSources = inputSources.filter(is => is.reference !== inputSource.reference);
+    io.inputSources = inputSources;
+    this.ioStore.publish(io);
+    this.closeModal();
+  }
+
   selectSourceType(sourceType: InputSourceType) {
     this.selectedSourceType = sourceType;
     this.canStepForward = true;
@@ -124,7 +133,8 @@ var InputSourceModalComponent: angular.IComponentOptions = {
       && $ctrl.selectedSourceType.id === 'excel'"
       input-source="$ctrl.inputSource"
       mode="$ctrl.mode"
-      on-add-input-source="$ctrl.addInputSource(inputSource)"></excel-file-step>
+      on-add-input-source="$ctrl.addInputSource(inputSource)"
+      on-remove-input-source="$ctrl.removeInputSource(inputSource)"></excel-file-step>
 
     <step-buttons on-step-back="$ctrl.stepBack()"
       on-step-forward="$ctrl.stepForward()"

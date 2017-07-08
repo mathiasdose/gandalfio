@@ -37,8 +37,8 @@ class OutputExcelFileStepCtrl extends AngularClass {
   }
 
   addFileEnding(output: ExcelOutput) {
-    output.fileName = _.trimEnd(output.fileName, '.xslx');
-    output.fileName = `${output.fileName}.xslx`;
+    output.fileName = _.trimEnd(output.fileName, '.xlsx');
+    output.fileName = `${output.fileName}.xlsx`;
     return output;
   }
 
@@ -56,6 +56,7 @@ class OutputExcelFileStepCtrl extends AngularClass {
 var OutputExcelFileStepComponent: angular.IComponentOptions = {
   bindings: {
     onAddOutput: '&',
+    onRemoveOutput: '&',
     output: '<',
     mode: '<',
     outputTypes: '<'
@@ -79,7 +80,12 @@ var OutputExcelFileStepComponent: angular.IComponentOptions = {
       </div>
     </div>
     <div class="button-container col-xs-8 col-xs-offset-2">
-      <button class="btn btn-primary pull-right" ng-click="$ctrl.addOutput()">Add</button>
+      <button ng-if="$ctrl.mode === 1"
+        class="btn btn-default pull-right" 
+        ng-click="$ctrl.onRemoveOutput({ output: $ctrl.output })">Remove</button>
+      <button ng-if="$ctrl.mode === 0"
+        class="btn btn-primary pull-right" 
+        ng-click="$ctrl.addOutput()">Add</button>
     </div>
   </div>
   `

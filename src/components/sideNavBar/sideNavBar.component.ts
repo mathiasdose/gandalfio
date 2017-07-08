@@ -29,11 +29,6 @@ class SideNavBarCtrl {
         path: '/',
         title: 'Import => Export',
         icon: 'vertical_align_bottom'
-      },
-      {
-        path: '/test',
-        title: 'Testing asd with some asd',
-        icon: 'bubble_chart'
       }
     ]
   }

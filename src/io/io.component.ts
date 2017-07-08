@@ -37,11 +37,13 @@ class IoCtrl {
 
   async runIo() {
     //startLoading
+    await this.ioService.runIo(this.io);
     try {
-      await this.ioService.runIo(this.io);
+      
       // let res = await this.ioService.asyncFunc1();
       // console.log(res);
     } catch (error) {
+      console.log(error);
       //display error
     } finally {
       //stopLoading

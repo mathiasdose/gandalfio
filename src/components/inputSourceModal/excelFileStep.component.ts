@@ -43,6 +43,7 @@ class ExcelFileStepCtrl extends AngularClass {
 var ExcelFileStepComponent: angular.IComponentOptions = {
   bindings: {
     onAddInputSource: '&',
+    onRemoveInputSource: '&',
     inputSource: '<',
     mode: '<'
   },
@@ -66,7 +67,12 @@ var ExcelFileStepComponent: angular.IComponentOptions = {
       </div>
     </div>
     <div class="button-container col-xs-8 col-xs-offset-2">
-      <button class="btn btn-primary pull-right" ng-click="$ctrl.addInputSource()">Add</button>
+      <button ng-if="$ctrl.mode === 1"
+        class="btn btn-default pull-right" 
+        ng-click="$ctrl.onRemoveInputSource({ inputSource: $ctrl.inputSource })">Remove</button>
+      <button ng-if="$ctrl.mode === 0"
+        class="btn btn-primary pull-right" 
+        ng-click="$ctrl.addInputSource()">Add</button>
     </div>
   </div>
   `

@@ -84,6 +84,15 @@ class OutputModalCtrl extends AngularClass {
     this.closeModal();
   }
 
+  removeOutput(output: Output) {
+    let io = this.ioStore.getStoreData();
+    let outputs = angular.copy(io.outputs);
+    outputs = outputs.filter(o => o.id !== output.id);
+    io.outputs = outputs;
+    this.ioStore.publish(io);
+    this.closeModal();
+  }
+
   selectOutputType(outputType: OutputType) {
     this.selectedOutputType = outputType;
     this.canStepForward = true;
@@ -120,7 +129,8 @@ var OutputModalComponent: angular.IComponentOptions = {
       output="$ctrl.output"
       output-types="$ctrl.outputTypes"
       mode="$ctrl.mode"
-      on-add-output="$ctrl.addOutput(output)"></output-excel-file-step>
+      on-add-output="$ctrl.addOutput(output)"
+      on-remove-output="$ctrl.removeOutput(output)"></output-excel-file-step>
 
     <step-buttons on-step-back="$ctrl.stepBack()"
       on-step-forward="$ctrl.stepForward()"
