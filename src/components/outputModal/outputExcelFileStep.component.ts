@@ -17,7 +17,7 @@ class OutputExcelFileStepCtrl extends AngularClass {
   }
 
   scaffoldOutput() {
-    let excelOutputType = this.outputTypes.filter(ot => ot.id === 'excel_directory')[0];
+    let excelOutputType = this.outputTypes.filter(ot => ot.id === 'excel_directory')[0]
     this.output = {
       outputType: excelOutputType,
       directory: null,

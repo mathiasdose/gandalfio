@@ -111,8 +111,9 @@ class StorePart<T> extends AngularClass {
     var propNames = Object.getOwnPropertyNames(obj);
     propNames.forEach(name => {
       var prop = obj[name];
-      if (typeof prop == 'object' && prop !== null)
+      if (typeof prop === 'object' && prop !== null) {
         this._deepFreeze(prop);
+      }
     });
     return Object.freeze(obj);
   }
