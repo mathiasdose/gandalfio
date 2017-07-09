@@ -1,26 +1,34 @@
 
 side-nav-bar {
-  position: fixed;
-  height: 100%;
-  width: 50px;
-  background: @brand-primary;
-  color: @navbar-default-color;
-  text-align: center;
 
-  .nav-link-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: pointer;
-    &.active {
-      background: @navbar-default-link-active-bg;
-    }
-    &:hover {
-      color: @brand-success;
+  .side-nav-bar {
+    z-index: 1;
+    position: fixed;
+    height: 100%;
+    width: 50px;
+    background: @brand-primary;
+    color: @navbar-default-color;
+    text-align: center;
+
+    &.log-open {
+      left: 400px;
     }
 
-    i.material-icons {
-      font-size: 30px;
-      
+    .nav-link-container {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      cursor: pointer;
+      &.active {
+        background: @navbar-default-link-active-bg;
+      }
+      &:hover {
+        color: @brand-success;
+      }
+
+      i.material-icons {
+        font-size: 30px;
+        
+      }
     }
   }
 }

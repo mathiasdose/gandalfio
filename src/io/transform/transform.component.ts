@@ -38,6 +38,6 @@ var TransformComponent: angular.IComponentOptions = {
       on-statement-change="$ctrl.onStatementChanged(statement)"></transform-editor>
   </div>
   `
-}
+};
 
 angular.module('Gandalfio').component('transform', TransformComponent);

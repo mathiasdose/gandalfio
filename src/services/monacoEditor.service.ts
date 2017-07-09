@@ -13,7 +13,7 @@ class MonacoEditorService extends AngularClass {
   awaitMonacoEditor() {
     let defered = this.$q.defer();
     this.deferreds.push(defered);
-    return defered.promise
+    return defered.promise;
   }
 
   private setupMonacoLoaderLister() {

@@ -23,16 +23,23 @@ class TransformEditorCtrl extends AngularClass {
 
     this.containerElem = this.$element.find('#container');
     this.setupMonacoConfig();
-    
+  }
 
+  $onChanges(changes: angular.IOnChangesObject) {
+    if (changes.transform 
+      && !changes.transform.isFirstChange()
+      && this.transform.statement === null) {
+      this.monacoEditor.setValue(this.getDefaultValue());
+    }
   }
 
   setupMonacoConfig() {
 
     this.editorOptions = {
       value: this.transform.statement || this.getDefaultValue(),
-      language: 'sql'
-    }
+      language: 'sql',
+      automaticLayout: true
+    };
 
   }
 
