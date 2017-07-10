@@ -6,7 +6,8 @@ class IoService extends AngularClass {
     private outputService: OutputService,
     private $q: angular.IQService,
     private konstrux: Konstrux,
-    private localStorageService: angular.local.storage.ILocalStorageService) {
+    private localStorageService: angular.local.storage.ILocalStorageService,
+    private $rootScope: angular.IRootScopeService) {
     super();
   }
 
@@ -16,6 +17,7 @@ class IoService extends AngularClass {
   }
 
   async runIo(io: Io) {
+
     let inputData = await this.inputSourceService.loadInputData(io.inputSources);
     let transformed = this.transformService.transform(io.transform, inputData);
     let result = await this.outputService.writeOutputs(io.outputs, transformed);

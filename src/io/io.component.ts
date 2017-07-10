@@ -5,7 +5,10 @@ class IoCtrl {
 
   constructor(private konstrux: Konstrux,
     private ioService: IoService,
-    private globalLogService: GlobalLogService) {
+    private globalLogService: GlobalLogService,
+    private globalLoaderService: GlobalLoaderService,
+    private $timeout: angular.ITimeoutService,
+    private $rootScope: angular.IRootScopeService) {
   }
 
   $onInit() {
@@ -19,17 +22,24 @@ class IoCtrl {
     this.unsubIo();
   }
 
+  $postLink() {
+    this.$timeout(1500)
+      .then(this.globalLoaderService.stopLoading);
+  }
+
+
   async runIo() {
     this.globalLogService.log(`Running io.`);
-    
+    this.globalLoaderService.startLoading();
     try {
       await this.ioService.runIo(this.io);
+      this.globalLogService.log(`Successfully completed the io.`);
     } catch (error) {
       this.globalLogService.log(error.message);
       console.error(error);
-      //display error
     } finally {
-      //stopLoading
+      this.globalLoaderService.stopLoading();
+      this.$rootScope.$apply();
     }
 
 
@@ -57,7 +67,7 @@ var ioComponent: angular.IComponentOptions = {
     <expandable-section sequence="2" header="Transform your data" show-content="true" class="row">
       <transform></transform>
     </expandable-section>
-    <expandable-section sequence="3" header="Export" show-content="true" class="row">
+    <expandable-section sequence="3" header="Write to outputs" show-content="true" class="row">
       <outputs></outputs>
     </expandable-section>
     <div class="delimiter"></div>

@@ -18,7 +18,7 @@ var IoBottomBarComponent: angular.IComponentOptions = {
   },
   controller: IoBottomBarCtrl,
   template: `
-  <div class="button-container col-xs-12">
+  <div class="button-container">
     <button class="btn btn-primary pull-right" ng-click="$ctrl.onRun()">Run</button>
     <button class="btn btn-default pull-right" ng-click="$ctrl.onClear()">Clear</button>
   </div>

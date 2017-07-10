@@ -4,6 +4,9 @@ class GlobalLogService extends AngularClass {
   constructor(private konstrux: Konstrux,
     private moment) {
     super();
+  }
+
+  initStore() {
     this.store = this.konstrux.registerStorePart('globalLog', []);
   }
 

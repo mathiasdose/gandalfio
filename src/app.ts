@@ -15,8 +15,11 @@ angular.module('Gandalfio').run(($rootScope: angular.IRootScopeService) => {
   $rootScope.angular = angular;
 });
 
-angular.module('Gandalfio').run((ioService: IoService) => {
+angular.module('Gandalfio').run((ioService: IoService, globalLogService: GlobalLogService,
+  globalLoaderService: GlobalLoaderService) => {
   ioService.initStore();
+  globalLogService.initStore();
+  globalLoaderService.initStore();
 });
 
 // import * as alasql from 'alasql';

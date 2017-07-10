@@ -2,7 +2,7 @@ class OutputService extends AngularClass {
 
   private outputTypes: OutputType[];
 
-  constructor(private xlsx, private $q: angular.IQService) {
+  constructor(private xlsx, private $q: angular.IQService, private $timeout: angular.ITimeoutService) {
     super();
     this.outputTypes = [
       {
@@ -10,7 +10,7 @@ class OutputService extends AngularClass {
         name: 'Excel',
         description: 'Outputs an .xlsx file to a directory'
       }
-    ]
+    ];
   }
 
   getOutputTypes() {
@@ -39,9 +39,9 @@ class OutputService extends AngularClass {
       Sheets: { Sheet1: sheet },
       SheetNames: ['Sheet1'],
       Props: {}
-    }
+    };
     this.xlsx.writeFile(workbook, `${excelOutput.directory}/${excelOutput.fileName}`);
-    return this.$q.when();
+    return this.$timeout();
   }
 
   private dataToAoa(data: {}[]) {

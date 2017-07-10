@@ -3,7 +3,8 @@ class InputSourceService extends AngularClass {
   private inputSourceTypes: InputSourceType[];
 
   constructor(private $q: angular.IQService,
-    private xlsx) {
+    private xlsx,
+    private $timeout: angular.ITimeoutService) {
     super();
     this.inputSourceTypes = [
       {
@@ -35,9 +36,14 @@ class InputSourceService extends AngularClass {
   }
 
   private loadExcelInputData(excelInputSource: ExcelInputSource) {   
-    let workbook = this.xlsx.readFile(excelInputSource.filePath);
-    let data = this.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-    return this.$q.when(data);
+    
+    return this.$timeout()
+      .then(() => {
+        let workbook = this.xlsx.readFile(excelInputSource.filePath);
+        let data = this.xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+        return data;
+      });
+    // return this.$q.when(data);
   }
 
 }

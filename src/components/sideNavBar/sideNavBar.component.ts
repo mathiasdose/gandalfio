@@ -31,7 +31,7 @@ class SideNavBarCtrl extends AngularClass {
     this.topLinks = [
       {
         path: '/',
-        title: 'Import => Export',
+        title: 'IO',
         icon: 'vertical_align_bottom'
       }
     ];
@@ -47,7 +47,6 @@ class SideNavBarCtrl extends AngularClass {
   }
 
   toggleOpenSideBar() {
-    console.log(this.logOpen);
     this.logOpen = !this.logOpen;
   }
 
