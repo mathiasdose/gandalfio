@@ -29,16 +29,16 @@ var InputSourcesComponent: angular.IComponentOptions = {
   controller: InputSourcesCtrl,
   template: `
   <div>
-    <div class="input-sources-container col-xs-12">
+    <div class="input-sources-container">
       <div ng-repeat="inputSource in $ctrl.inputSources"
-        class="input-source-button-container col-xs-2">
+        class="input-source-button-container">
         <div class="input-source-button" ng-click="$ctrl.inputSourceModalApi.runWizard(inputSource)">
           <i class="material-icons input-source-icon">insert_drive_file</i>
           <h4>{{inputSource.reference}}</h4>
         </div>
       </div>
     </div>
-    <div class="add-button-container col-xs-1 col-xs-offset-11">
+    <div class="add-button-container">
       <button class="btn btn-primary"
         ng-click="$ctrl.inputSourceModalApi.runWizard()">Add</button>
     </div>

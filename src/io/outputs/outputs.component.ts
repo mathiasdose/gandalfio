@@ -29,16 +29,16 @@ var OutputsComponent: angular.IComponentOptions = {
   controller: OutputsCtrl,
   template: `
   <div>
-    <div class="outputs-container col-xs-12">
+    <div class="outputs-container">
       <div ng-repeat="output in $ctrl.outputs"
-        class="output-button-container col-xs-2">
+        class="output-button-container">
         <div class="output-button" ng-click="$ctrl.outputModalApi.runWizard(output)">
           <i class="material-icons">insert_drive_file</i>
           <h4>{{output.id}}</h4>
         </div>
       </div>
     </div>
-    <div class="add-button-container col-xs-1 col-xs-offset-11">
+    <div class="add-button-container">
       <button class="btn btn-primary"
         ng-click="$ctrl.outputModalApi.runWizard()">Add</button>
     </div>
@@ -48,6 +48,6 @@ var OutputsComponent: angular.IComponentOptions = {
     </modal>
   </div>
   `
-}
+};
 
 angular.module('Gandalfio').component('outputs', OutputsComponent);
